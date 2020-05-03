@@ -2,6 +2,7 @@ package ly.gold.betterstats.main;
 
 import de.craftagain.betterstats.mysql.MySQL;
 import ly.gold.betterstats.api.Data;
+import ly.gold.betterstats.commands.CMD_update;
 import ly.gold.betterstats.events.BlockBreakListener;
 import ly.gold.betterstats.events.BlockPlaceListener;
 import ly.gold.betterstats.events.PlayerJoinListener;
@@ -15,6 +16,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class BetterStats extends JavaPlugin {
     private static BetterStats plugin;
@@ -25,6 +29,17 @@ public class BetterStats extends JavaPlugin {
     public void onEnable() {
         plugin = this;
         MySQL.connect();
+
+        Connection connection = MySQL.getCon();
+        try {
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS stats (player varchar(40), brokenblocks int, placedblocks int, playerkills int)");
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+
         Data.log("§7BetterStats is started!");
 
         // custom config setup
@@ -43,6 +58,8 @@ public class BetterStats extends JavaPlugin {
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new BlockBreakListener(), this);
         pluginManager.registerEvents(new BlockPlaceListener(), this);
+
+        this.getCommand("update").setExecutor(new CMD_update());
     }
 
     @Override

@@ -2,12 +2,13 @@ package ly.gold.betterstats.api;
 
 import ly.gold.betterstats.main.BetterStats;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
 
 public class User {
-    private Player player;
+    private OfflinePlayer player;
     private String name;
 
     private int placedBlocks;
@@ -16,7 +17,7 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        this.player = (Player) Bukkit.getOfflinePlayer(name);
+        this.player = Bukkit.getOfflinePlayer(name);
 
         this.placedBlocks = BetterStats.getPlayerData().getInt(name + ".placedBlocks");
         this.breakedBlocks = BetterStats.getPlayerData().getInt(name + ".breakedBlocks");
@@ -33,6 +34,10 @@ public class User {
 
     public int getPlayerKills() {
         return playerKills;
+    }
+
+    public OfflinePlayer getOfflinePlayer() {
+        return player;
     }
 
     public void addPlacedBlock() {
