@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class MySQL {
 
-    private static String host = BetterStats.getInstance().getConfig().getString("mysql.host");
+    private static String host = BetterStats.getInstance().getConfig().getString("mysql.hostname");
     private static String database = BetterStats.getInstance().getConfig().getString("mysql.database");
     private static String username = BetterStats.getInstance().getConfig().getString("mysql.username");
     private static String password = BetterStats.getInstance().getConfig().getString("mysql.password");
@@ -20,10 +20,10 @@ public class MySQL {
     public static void connect(){
         if(!isConnected()){
             try {
+
                 con = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database, username, password);
                 Data.log("Succesfully connected to Database");
             } catch (SQLException e) {
-                e.printStackTrace();
                 Data.log("Database is not available");
             }
         }else
