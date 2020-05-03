@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class MySQL {
 
-    private static String host = BetterStats.getInstance().getConfig().getString("mysql.host");
+    private static String host = BetterStats.getInstance().getConfig().getString("mysql.hostname");
     private static String database = BetterStats.getInstance().getConfig().getString("mysql.database");
     private static String username = BetterStats.getInstance().getConfig().getString("mysql.username");
     private static String password = BetterStats.getInstance().getConfig().getString("mysql.password");
