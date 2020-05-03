@@ -1,5 +1,6 @@
 package ly.gold.betterstats.main;
 
+import de.craftagain.betterstats.mysql.MySQL;
 import ly.gold.betterstats.api.Data;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,7 +10,7 @@ public class BetterStats extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-
+        MySQL.connect();
         Data.log("§7BetterStats is started!");
 
         this.getConfig().addDefault("mysql.hostname", "localhost");
@@ -23,6 +24,7 @@ public class BetterStats extends JavaPlugin {
     @Override
     public void onDisable() {
         Data.log("§7BetterStats is stopped!");
+        MySQL.disconnect();
     }
 
     public static BetterStats getInstance() {
