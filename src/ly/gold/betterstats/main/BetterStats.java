@@ -3,10 +3,7 @@ package ly.gold.betterstats.main;
 import de.craftagain.betterstats.mysql.MySQL;
 import ly.gold.betterstats.api.Data;
 import ly.gold.betterstats.commands.CMD_update;
-import ly.gold.betterstats.events.BlockBreakListener;
-import ly.gold.betterstats.events.BlockPlaceListener;
-import ly.gold.betterstats.events.PlayerJoinListener;
-import ly.gold.betterstats.events.PlayerKillListener;
+import ly.gold.betterstats.events.*;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -41,6 +38,9 @@ public class BetterStats extends JavaPlugin {
 
 
         Data.log("§7BetterStats is started!");
+
+        // Auto Update Stats
+        StatsUpdateEvent.updatePlayerStats();
 
         // custom config setup
         setupPlayerDataConfig();
